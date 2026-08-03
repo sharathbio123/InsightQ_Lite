@@ -122,5 +122,9 @@ ollama pull nomic-embed-text
 - If the backend reports `pipeline not built`, run `Build RAG Index` before asking questions.
 - If the frontend cannot reach the backend, check `REACT_APP_API_BASE` or use `docker compose up`.
 
+<<<<<<< HEAD
 ## Clean GitHub upload
 This repository is prepared for GitHub by keeping the core application files and documenting the build/run flow clearly. The `documents/` folder is the active storage path, and local PDF files are excluded from Git history.
+=======
+=======
+>>>>>>> 7f83442abd0e54bd026551ae33fbcdd1598d1a17
