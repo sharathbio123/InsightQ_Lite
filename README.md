@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # InsightQ
 
 InsightQ is a local document assistant built for research workflows. It lets you upload PDFs, build a local vector index, and ask natural language questions against your own documents.
@@ -92,3 +93,6 @@ ollama pull nomic-embed-text
 ## Clean GitHub upload
 This repository is prepared for GitHub by keeping the core application files and documenting the build/run flow clearly. The `documents/` folder is the active storage path, and local PDF files are excluded from Git history.
 
+=======
+# InsightQ_Lite
+>>>>>>> 861c6b3eedb8ed23834ee777e425b6694128150b
