@@ -5,7 +5,7 @@ InsightQ is a local document assistant built for research workflows. It lets you
 # Homepage
 <p align="center">
 <a href="assets/InsightQ-home.png">
-<img src="assets/InsightQ-home.png" width="900">
+<img src="assets/InsightQ-home.png" width="500">
 </a>
 </p>
 
