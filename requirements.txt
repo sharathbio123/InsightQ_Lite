@@ -1,0 +1,12 @@
+streamlit>=1.26
+# LangChain core and integrations used by the project
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-chroma
+langchain-ollama
+chromadb
+pypdf
+
+# Optional / recommended for best performance (ensure compatibility with your platform)
+# nomic-embed-text  # may be provided by Ollama or installed per your local setup

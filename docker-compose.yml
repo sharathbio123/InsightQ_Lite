@@ -1,0 +1,55 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: insightq-ollama
+    ports:
+      - "11435:11434"
+    volumes:
+      - .:/app
+      - ollama-data:/root/.ollama
+    entrypoint: ["/bin/sh", "-c", "/app/ollama-entrypoint.sh"]
+    working_dir: /app
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 6
+      start_period: 30s
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: insightq-backend:latest
+    ports:
+      - "8001:8000"
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+    volumes:
+      - ./documents:/app/documents
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: insightq-frontend:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  ollama-data:
+    driver: local
