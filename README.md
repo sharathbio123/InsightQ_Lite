@@ -25,6 +25,7 @@ flowchart LR
     R --> L
     L --> F
 ```
+For a dedicated standalone architecture reference, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ### How the connections work
 1. The React frontend sends uploaded PDFs to `POST /upload`.
@@ -42,11 +43,6 @@ flowchart LR
   - Frontend: `http://localhost:8080`
   - Backend: `http://localhost:8001`
   - Ollama API: `http://localhost:11435`
-
-### Visual architecture diagram
-![InsightQ architecture diagram](assets/insightq-architecture.svg)
-
-For a dedicated standalone architecture reference, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Installation
 ### Prerequisites
