@@ -3,13 +3,10 @@
 InsightQ is a local document assistant built for research workflows. It lets you upload PDFs, build a local vector index, and ask natural language questions against your own documents.
 
 # Homepage
-
 <p align="center">
-  <img src="assets/insightQ-home.png" alt="InsightQ UI" width="900">
-</p>
-
-<p align="center">
-Local AI-powered Document Assistant with RAG, Ollama, FastAPI and React.
+<a href="assets/insightQ-home.png">
+<img src="assets/insightQ-home.png" width="900">
+</a>
 </p>
 
 ## Architecture overview
