@@ -69,14 +69,6 @@ npm install
 npm start
 ```
 
-Open `http://localhost:3000` in your browser.
-
-The frontend uses `http://localhost:8000` by default. If your backend runs elsewhere, set:
-
-```bash
-REACT_APP_API_BASE=http://<host>:<port> npm start
-```
-
 ## Docker setup (Recommended)
 Use Docker Compose to run the full stack with Ollama, the backend, and the frontend.
 
