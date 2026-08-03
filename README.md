@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # InsightQ
 
 InsightQ is a local document assistant built for research workflows. It lets you upload PDFs, build a local vector index, and ask natural language questions against your own documents.
