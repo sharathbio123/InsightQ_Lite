@@ -39,8 +39,8 @@ For a dedicated standalone architecture reference, see [ARCHITECTURE.md](ARCHITE
 ## Installation
 
 ### Clone the Repository
-git clone https://github.com/sharathbio123/InsightQ_Lite.git
-cd InsightQ_Lite
+- git clone https://github.com/sharathbio123/InsightQ_Lite.git
+- cd InsightQ_Lite
 
 ### Prerequisites
 - Python 3.11+
@@ -77,11 +77,11 @@ The frontend uses `http://localhost:8000` by default. If your backend runs elsew
 REACT_APP_API_BASE=http://<host>:<port> npm start
 ```
 
-## Docker setup
+## Docker setup (Recommended)
 Use Docker Compose to run the full stack with Ollama, the backend, and the frontend.
 
 ```bash
-docker compose up --build
+docker compose up -d --build
 ```
 
 After startup:
@@ -103,14 +103,3 @@ docker compose down
 
 ## Notes
 - The active document folder is `documents/`. Store PDFs there or upload from the frontend.
-- `documents/*.pdf` is ignored from version control so local data does not get committed.
-- Ollama must be available for the RAG pipeline to generate embeddings and chat responses. Pull the required models if needed:
-
-```bash
-ollama pull llama3.2:3b
-ollama pull nomic-embed-text
-```
-
-## Troubleshooting
-- If the backend reports `pipeline not built`, run `Build RAG Index` before asking questions.
-- If the frontend cannot reach the backend, check `REACT_APP_API_BASE` or use `docker compose up`.
