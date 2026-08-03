@@ -1,20 +1,52 @@
-<<<<<<< HEAD
 # InsightQ
 
 InsightQ is a local document assistant built for research workflows. It lets you upload PDFs, build a local vector index, and ask natural language questions against your own documents.
 
 ## Project structure
-- `backend/` — FastAPI service that wraps the local RAG pipeline and exposes upload, build, and chat APIs.
-- `frontend/` — React SPA with a polished upload/build/chat UI.
-- `documents/` — local document storage for uploaded PDFs.
-- `Test_AI.py` — core RAG pipeline and prompt setup using Ollama embeddings and a local chat model.
-- `docker-compose.yml` — orchestrates Ollama, backend, and frontend for a full Docker deployment.
+- `backend/` — FastAPI service that exposes `/upload`, `/build`, `/chat`, `/health`, and `/history` endpoints.
+- `frontend/` — React SPA with a polished upload/build/chat experience.
+- `documents/` — local storage for uploaded PDFs.
+- `Test_AI.py` — core RAG pipeline that loads PDFs, splits text, creates embeddings, and connects the retrieval chain to an Ollama-backed LLM.
+- `docker-compose.yml` — orchestrates Ollama, the backend, and the frontend for a full Docker deployment.
 - `app.py` and the root `Dockerfile` remain as a lightweight Streamlit fallback option, but the React + FastAPI stack is recommended for production use.
 
 ## Architecture overview
-1. Upload PDFs from the browser into `documents/`.
-2. The backend builds a local retrieval index and initializes an offline LLM pipeline.
-3. Chat queries are answered using the indexed document context and the local model.
+InsightQ follows a simple local RAG architecture: the browser sends documents and questions to a backend service, the backend builds a retrieval pipeline from the PDFs, and the local LLM answers the question using the retrieved context.
+
+```mermaid
+flowchart LR
+    U[User in browser] --> F[React frontend]
+    F -->|HTTP requests| B[FastAPI backend]
+    B -->|save/read PDFs| D[documents/ folder]
+    B -->|embedding + chat calls| O[Ollama service]
+    O -->|nomic-embed-text| E[Embedding model]
+    O -->|llama3.2:3b| L[Chat model]
+    B -->|retrieval context| R[Local RAG pipeline]
+    R --> L
+    L --> F
+```
+
+### How the connections work
+1. The React frontend sends uploaded PDFs to `POST /upload`.
+2. The backend stores the uploaded files in `documents/`.
+3. When the user clicks `Build RAG Index`, the backend loads the PDFs, splits them into chunks, generates embeddings with Ollama, and builds a local retrieval chain.
+4. When the user asks a question, the frontend sends it to `POST /chat`.
+5. The backend retrieves the most relevant document chunks, sends them to the Ollama chat model together with the question, and returns the answer to the frontend.
+
+### Runtime connection map
+- Local mode:
+  - Frontend: `http://localhost:3000`
+  - Backend: `http://localhost:8000`
+  - Ollama API: `http://localhost:11434`
+- Docker mode:
+  - Frontend: `http://localhost:8080`
+  - Backend: `http://localhost:8001`
+  - Ollama API: `http://localhost:11435`
+
+### Visual architecture diagram
+![InsightQ architecture diagram](assets/insightq-architecture.svg)
+
+For a dedicated standalone architecture reference, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Installation
 ### Prerequisites
@@ -62,7 +94,7 @@ docker compose up --build
 After startup:
 - Frontend: http://localhost:8080
 - Backend: http://localhost:8001
-- Ollama API: http://localhost:11434
+- Ollama API: http://localhost:11435
 
 Stop the stack with:
 
@@ -92,7 +124,3 @@ ollama pull nomic-embed-text
 
 ## Clean GitHub upload
 This repository is prepared for GitHub by keeping the core application files and documenting the build/run flow clearly. The `documents/` folder is the active storage path, and local PDF files are excluded from Git history.
-
-=======
-# InsightQ_Lite
->>>>>>> 861c6b3eedb8ed23834ee777e425b6694128150b
